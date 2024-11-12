@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 MEALS = (
    ('B', 'Breakfast'),
@@ -16,6 +17,8 @@ class Cat (models.Model) :
         return self.name
         # return (f'{self.breed}, {self.name}')
 
+    def fed_for_today(self):
+        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 # Add new Feeding model below Cat model
 class Feeding(models.Model):
     date = models.DateField('Feeding Date')
@@ -29,4 +32,7 @@ class Feeding(models.Model):
 
     def __str__(self):
         # get_nameofdata_display() is a DJANGO Model built-in-function. NOTE: It needs to have the choices passed. 
-        return f"{self.cat} | {self.get_meal_display()} on {self.date.day}"
+        return f"{self.cat} | {self.get_meal_display()} on {self.date}"
+    
+    class Meta :
+        ordering = ['-date']

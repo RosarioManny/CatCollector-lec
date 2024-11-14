@@ -53,6 +53,7 @@ class FeedingDetail(generics.RetrieveUpdateDestroyAPIView):
     cat_id = self.kwargs['cat_id']
     return Feeding.objects.filter(cat_id=cat_id)
   
+# TOYS
 class ToyList(generics.ListCreateAPIView):
   queryset = Toy.objects.all()
   serializer_class = ToySerializer
@@ -61,3 +62,10 @@ class ToyDetails(generics.RetrieveUpdateDestroyAPIView):
   queryset = Toy.objects.all()
   serializer_class = ToySerializer
   lookup_field = 'id'
+
+class AddToyToCat(APIView):
+  def post(self, request, cat_id, toy_id):
+    cat = Cat.objects.get(id=cat_id)
+    toy = Toy.objects.get(id=toy_id)
+    cat.toys.add(toy)
+    return Response({'message': f'Toy {toy.name} added to Cat {cat.name}'})

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CatList, CatDetail, FeedingListCreate, FeedingDetail, ToyList, ToyDetails
+from .views import Home, CatList, CatDetail, FeedingListCreate, FeedingDetail, ToyList, ToyDetails, AddToyToCat
 
 urlpatterns = [
     path("", Home.as_view(), name="Home" ),
@@ -8,5 +8,7 @@ urlpatterns = [
     path('cats/<int:cat_id>/feedings/', FeedingListCreate.as_view(), name='feeding-list-create'),
 	path('cats/<int:cat_id>/feedings/<int:id>/', FeedingDetail.as_view(), name='feeding-detail'),
     path('toys/', ToyList.as_view(), name='Toy-List'),
-    path('toys/<int:id>', ToyDetails.as_view(), name='Toy-Details')
+    path('toys/<int:id>', ToyDetails.as_view(), name='Toy-Details'),
+    path('cats/<int:cat_id>/add_toy/<int:toy_id>/', AddToyToCat.as_view(), name='add-toy-to-cat'),
+
 ]

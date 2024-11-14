@@ -10,5 +10,4 @@ urlpatterns = [
     path('toys/', ToyList.as_view(), name='Toy-List'),
     path('toys/<int:id>', ToyDetails.as_view(), name='Toy-Details'),
     path('cats/<int:cat_id>/add_toy/<int:toy_id>/', AddToyToCat.as_view(), name='add-toy-to-cat'),
-
 ]

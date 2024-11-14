@@ -45,7 +45,7 @@ class ToyList(generics.ListCreateAPIView):
   queryset = Toy.objects.all()
   serializer_class = ToySerializer
 
-class ToyDetail(generics.RetrieveUpdateDestroyAPIView):
+class ToyDetails(generics.RetrieveUpdateDestroyAPIView):
   queryset = Toy.objects.all()
   serializer_class = ToySerializer
   lookup_field = 'id'

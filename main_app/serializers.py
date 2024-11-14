@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Cat, Feeding
+from .models import Cat, Feeding, Toy
 
 class CatSerializer(serializers.ModelSerializer) :
     fed_for_today = serializers.SerializerMethodField()
@@ -11,8 +11,14 @@ class CatSerializer(serializers.ModelSerializer) :
     def get_fed_for_today(self, obj):
         return obj.fed_for_today()
 
-class FeedingSerializer(serializers.ModelSerializer) :
+class FeedingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feeding
         fields = '__all__'
         read_only_fields = ('cat',)
+
+class ToySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Toy
+        fields = '__all__'
+    

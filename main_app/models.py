@@ -2,23 +2,25 @@ from django.db import models
 from datetime import date
 
 MEALS = (
-   ('B', 'Breakfast'),
-   ('L', 'Lunch'),
-   ('D', 'Dinner')
+    ('B', 'Breakfast'),
+    ('L', 'Lunch'),
+    ('D', 'Dinner')
 )
-
+#TOY
 class Toy (models.Model):
     name = models.CharField(max_length=50)
     color = models.CharField(max_length=20)
 
     def __str__(self): 
         return self.name
-# Create your models here.
+
+#CAT
 class Cat (models.Model) :
     name = models.CharField(max_length=100)
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     age = models.IntegerField()
+    toys = models.ManyToManyField(Toy)
 
     def __str__(self):
         return self.name
@@ -26,7 +28,8 @@ class Cat (models.Model) :
 
     def fed_for_today(self):
         return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
-# Add new Feeding model below Cat model
+        
+# FEEDING
 class Feeding(models.Model):
     date = models.DateField('Feeding Date')
     meal = models.CharField(

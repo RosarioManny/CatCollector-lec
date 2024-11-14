@@ -20,6 +20,18 @@ class CatDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = CatSerializer
   lookup_field = 'id'
 
+  def retrieve(self, request, *args, **kwargs):
+    instance = self.get_object()
+    serializer = self.get_serializer(instance)
+
+    toys_not_associated = Toy.objects.exclude(id__in=instance.toys.all())
+    toys_serializer = ToySerializer(toys_not_associated, many=True)
+
+    return Response({
+        'cat': serializer.data,
+        'toys_not_associated': toys_serializer.data
+    })
+
 # Feedings 
 class FeedingListCreate(generics.ListCreateAPIView):
   serializer_class = FeedingSerializer
